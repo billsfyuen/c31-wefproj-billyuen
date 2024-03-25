@@ -1,0 +1,76 @@
+.main-canvas {
+    margin: 20px;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    background: lightgray;
+    border-radius: 5px;
+}
+
+.main-btns {
+    background: white;
+    border: solid;
+    height: 100px;
+    width: 250px;
+}
+
+.spd-btns {
+    background: white;
+    border: solid;
+    height: 80px;
+    width: 150px;
+}
+
+.color-btns, .pattern-btns {
+    background: white;
+    border: solid;
+    height: 80px;
+    width: 200px;
+}
+
+.mode-btns {
+    background: white;
+    border: solid;
+    height: 80px;
+    width: 200px;
+
+}
+
+.custom-btns {
+    background: white;
+    border: solid;
+    height: 100px;
+    width: 300px;
+
+}
+
+.user-control {
+    border: solid
+}
+
+.form-range {
+    width: 75%;
+}
+
+.btn, .form-select-sm, .select-label, .range-label, .card {
+    margin: 2px;
+}
+
+#generate-patterns-select, #color-theme-select {
+    width: 100%;
+}
+
+#game-variations {
+    width: 100%;
+}
+
+.color-box-display, .color-box-display-random {
+    background: rgb(204, 255, 229);
+    width: 50px;
+    height: 30px;
+}
+
+.card {
+    background: lightgray;
+    border: gray
+}

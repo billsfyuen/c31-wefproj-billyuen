@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>[Bill-Assignment] Game of Life</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link href="https://getbootstrap.com/docs/5.3/assets/css/docs.css" rel="stylesheet">
+    <link rel="stylesheet" href="index.css" />
+</head>
+
+<body>
+    <main>
+        <div class="main-canvas position-relative">
+
+            <div id="canvas"></div>
+
+            <div class="position-absolute top-0 start-30 main-btns card">
+                <div class="d-flex justify-content-evenly">
+                    <button type="button" class="btn btn-outline-dark btn-sm" id="stop-game">STOP</button>
+                    <button type="button" class="btn btn-outline-success btn-lg" id="start-game">START</button>
+                    <button type="button" class="btn btn-outline-dark btn-sm" id="step-forward">STEP</button>
+                </div>
+                <div class="d-flex justify-content-evenly">
+                    <button type="button" class="btn btn-outline-danger" id="reset-game">Clear Board and
+                        Reset</button>
+                </div>
+            </div>
+
+            <div
+                class="position-absolute bottom-0 start-0 spd-btns card d-flex flex-column align-items-center justify-content-evenly">
+                <div class="d-flex justify-content-evenly">
+                    <input type="range" class="form-range-sm" id="fps-slider-control" min="0.9375" max="60"
+                        value="15" />
+                </div>
+                <div class="d-flex justify-content-evenly">
+                    <!-- lower fps (/2) -->
+                    <button type="button" class="btn btn-outline-primary btn-sm" id="slow-down">Slower</button>
+                    <!-- higher fps (*2) -->
+                    <button type="button" class="btn btn-outline-primary btn-sm" id="speed-up">Faster</button>
+                </div>
+            </div>
+
+            <div
+                class="position-absolute top-0 end-0 color-btns card d-flex flex-column align-items-center justify-content-evenly">
+                <div class="d-flex justify-content-evenly">
+                    <select class="form-select-sm" aria-label="Default select" id="color-theme-select">
+                        <option selected value="color-random">Rainbow</option>
+                        <option value="color-v1">Coral</option>
+                        <option value="color-v2">Papaya</option>
+                        <option value="color-v3">Lemon Chiffon</option>
+                        <option value="color-v4">Aqua Marine</option>
+                        <option value="color-v5">Lime</option>
+                        <option value="color-v6">Cyan</option>
+                        <option value="color-v7">Deep Sky</option>
+                        <option value="color-v8">Lake</option>
+                        <option value="color-v9">Orchid</option>
+                        <option value="color-v10">Plum</option>
+                        <option value="color-v11">Violet</option>
+                        <option value="color-v12">Magenta</option>
+                    </select>
+                </div>
+                <div class="d-flex justify-content-evenly">
+                    <div class="card color-box-display"></div>
+                    <div class="card color-box-display-random"><img src="./asset/Gay_Pride_Flag.svg"></div>
+                </div>
+            </div>
+
+            <div
+                class="position-absolute top-0 start-0 pattern-btns card d-flex flex-column align-items-center justify-content-evenly">
+                <div class="d-flex justify-content-evenly">
+                    <select class="form-select-sm" aria-label="Default select" id="generate-patterns-select">
+                        <option value="HELLO">"HELLO"</option>
+                        <option selected value="glider">Glider</option>
+                        <option value="gosper-glider-gun">Gosper Glider Gun</option>
+                        <option value="lightweight-spaceship">Lightweight Spaceship</option>
+                        <option value="blinker">Blinker</option>
+                        <option value="switch-engine">Switch Engine</option>
+                        <option value="venetian-blinds">Venetian Blinds</option>
+                        <option value="twin-bees-shuttle">Twin bees shuttle</option>
+                        <option value="simkin-glider-gun">Simkin Glider Gun</option>
+                        <option value="block-laying-switch-engine">Block-laying Switch Engine</option>
+                        <option value="copperhead">Copperhead</option>
+                        <option value="random-initial">Random</option>
+                    </select>
+                </div>
+                <div class="d-flex justify-content-evenly">
+                    <button type="button" class="btn btn-outline-primary btn-sm generate-patterns">Generate
+                        Pattern</button>
+                </div>
+            </div>
+
+            <div
+                class="position-absolute bottom-0 start-30 mode-btns card d-flex flex-column align-items-center justify-content-evenly">
+                <div class="d-flex justify-content-evenly">
+                    <select class="form-select-sm" aria-label="Default select" id="game-variations">
+                        <option selected value="normal-game">Normal Game</option>
+                        <option value="high-life-mode">High Life Mode</option>
+                        <option value="full-custom">Customize</option>
+                        <!-------------------------------------------->
+                        <!-- disabled mirror mode under construction -->
+                        <!-------------------------------------------->
+                        <!-- <option value="mirror-mode">Mirror Mode</option> -->
+                    </select>
+                </div>
+                <div class="d-flex justify-content-evenly">
+                    <label for="game-variations" class="select-label"><span id="game-mode-descriptions"
+                            class="badge rounded-pill text-bg-primary">Following Standard Rules</span></label>
+                </div>
+            </div>
+
+            <div
+                class="position-absolute bottom-0 end-0 custom-btns card d-flex flex-column align-items-center justify-content-evenly">
+                <div>
+                    <span class="badge rounded-pill text-bg-secondary">No. of Neighbors</span>
+                </div>
+                <div>
+                    <label for="reproduction-custom" class="select-label"><span
+                            class="badge rounded-pill text-bg-success">to Reproduce</span></label>
+                    <select class="form-select-sm" aria-label="Default select" id="reproduction-custom" disabled="true">
+                        <option selected value="reproduction-default">3 (Default Rule)</option>
+                        <option value="reproduction-custom1">4</option>
+                        <option value="reproduction-custom2">5</option>
+                        <option value="reproduction-custom3">6</option>
+                        <option value="reproduction-high-life">3 or 6 (High Life Mode)</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label for="survival-custom" class="select-label"><span class="badge rounded-pill text-bg-danger">to
+                            Survive</span></label>
+                    <select class="form-select-sm" aria-label="Default select" id="survival-custom" disabled="true">
+                        <option selected value="survival-default">2 to 3 (Default Rule)</option>
+                        <option value="survival-custom1">1 to 3</option>
+                        <option value="survival-custom2">0 to 3</option>
+                        <option value="survival-custom3">2 to 4</option>
+                        <option value="survival-custom4">2 to 5</option>
+                        <option value="survival-custom5">2 to 6</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/p5@1.9.1/lib/p5.js"></script>
+    <script src="index.js"></script>
+</body>
+
+</html>
+
+<!-- buttons should be outside the canvas!!! -->
